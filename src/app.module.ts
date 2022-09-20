@@ -3,6 +3,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { StudentModule } from './auth/student/student.module';
 import indexConfig from './config/index.config';
 
 @Module({
@@ -26,6 +27,7 @@ import indexConfig from './config/index.config';
       },
       inject: [ConfigService],
     }),
+    StudentModule,
   ],
   controllers: [AppController],
   providers: [AppService],

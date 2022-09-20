@@ -13,7 +13,7 @@ export default () => {
    */
 
   /**
-   * 必坑!
+   * 避坑!
    * nest会根据src目录结构将asset文件拷贝至compilerOptions#assets#outDir目录下的对应位置
    * 即：
    * 若/src/a/b目录中存在文件C,outDir设置为/dist,则c文件会被拷贝到/dist/a/b中
