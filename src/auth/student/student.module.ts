@@ -1,10 +1,11 @@
 import { Module } from '@nestjs/common';
-import { StudentService } from './student.service';
-import { StudentController } from './student.controller';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { JwtModule } from '@nestjs/jwt';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Student } from './entity/student.entity';
-import { JwtModule } from '@nestjs/jwt';
-import { ConfigModule, ConfigService } from '@nestjs/config';
+import { StudentController } from './student.controller';
+import { StudentService } from './student.service';
+import { StudentJwt } from '../strategy/studentJwt.strategy';
 @Module({
   imports: [
     TypeOrmModule.forFeature([Student]),
@@ -14,13 +15,13 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
       useFactory: (configService: ConfigService) => {
         return {
           secret: configService.get('tokenSecretKey'),
-          signOptions: { expiresIn: '1000d' },
+          signOptions: { expiresIn: '1000d' }, //token过期时间1000天
         };
       },
     }),
   ],
   exports: [TypeOrmModule],
-  providers: [StudentService],
+  providers: [StudentService, StudentJwt],
   controllers: [StudentController],
 })
 export class StudentModule {}

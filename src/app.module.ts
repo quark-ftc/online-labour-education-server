@@ -5,6 +5,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { StudentModule } from './auth/student/student.module';
 import indexConfig from './config/index.config';
+import { TestModule } from './test/test.module'; //用于测试一些功能，生产环境中应该删除改模块
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import indexConfig from './config/index.config';
       inject: [ConfigService],
     }),
     StudentModule,
+    TestModule, //用于测试一些功能，生产环境中应该删除改模块
   ],
   controllers: [AppController],
   providers: [AppService],

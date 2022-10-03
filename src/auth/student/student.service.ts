@@ -1,12 +1,11 @@
 import { Injectable } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt/dist';
 import { InjectRepository } from '@nestjs/typeorm';
+import { hash, verify } from 'argon2';
 import { Repository } from 'typeorm';
+import { StudentLoginDto } from './dto/student-login.dto';
 import { StudentRegisterDto } from './dto/student-register.dto';
 import { Student } from './entity/student.entity';
-import { hash, verify } from 'argon2';
-import { JwtService } from '@nestjs/jwt/dist';
-import { StudentLoginDto } from './dto/student-login.dto';
-import { domainToASCII } from 'url';
 
 @Injectable()
 export class StudentService {
@@ -64,7 +63,7 @@ export class StudentService {
       return {
         code: 200,
         message: 'Login successful',
-        token: this.jwtService.signAsync({
+        token: await this.jwtService.signAsync({
           username: studentLoginDto.username,
         }),
       };

@@ -1,6 +1,7 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { AppService } from './app.service';
+// import { Request } from 'express';
 
 @Controller()
 export class AppController {
@@ -8,9 +9,4 @@ export class AppController {
     private readonly appService: AppService,
     private readonly configService: ConfigService,
   ) {}
-
-  @Get()
-  getHello() {
-    console.log(this.configService.get('tokenSecretKey'));
-  }
 }
