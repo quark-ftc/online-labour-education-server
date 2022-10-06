@@ -3,9 +3,9 @@ import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 @Entity()
 export class Student {
   @PrimaryGeneratedColumn('uuid')
-  account_id: number;
+  account_id: string;
 
-  @Column()
+  @Column({ default: null })
   student_name: string;
 
   @Column()
@@ -14,12 +14,15 @@ export class Student {
   @Column()
   password: string;
 
-  @Column()
+  @Column({ default: null })
   student_id: string;
 
-  @Column()
+  @Column({ default: null })
   grade: string;
 
-  @Column()
+  @Column({ default: null })
   class_id: string;
+
+  @Column({ default: null })
+  nickname: string;
 }
