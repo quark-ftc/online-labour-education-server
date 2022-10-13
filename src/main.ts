@@ -20,6 +20,7 @@ async function bootstrap() {
       transform: true,
     }),
   );
+  app.enableCors({ origin: true }); //跨域支持
   await app.listen(3000);
 }
 bootstrap();

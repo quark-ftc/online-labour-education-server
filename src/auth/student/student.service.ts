@@ -14,7 +14,9 @@ export class StudentService {
     private readonly studentRepository: Repository<Student>,
     private readonly jwtService: JwtService,
   ) {}
-  async register(studentRegisterDto: StudentRegisterDto) {
+
+
+  async studentRegister(studentRegisterDto: StudentRegisterDto) {
     const studentList = await this.studentRepository.find({
       select: ['username'],
       where: { username: `${studentRegisterDto.username}` },
@@ -26,22 +28,23 @@ export class StudentService {
       studentRegisterDto.password = await hash(studentRegisterDto.password);
       this.studentRepository.save(studentRegisterDto);
       return {
-        code: 200,
-        message: 'Register successfully',
+        code: '200',
+        message: ['Register Successfully'],
         token: await this.jwtService.signAsync({
           username: studentRegisterDto.username,
         }),
       };
     } else {
       return {
-        code: 403,
-        message:
+        statusCode: '400',
+        message: [
           'The username(your telephone number) has already been registered',
+        ],
       };
     }
   }
 
-  async login(studentLoginDto: StudentLoginDto) {
+  async studentLogin(studentLoginDto: StudentLoginDto) {
     const studentList = await this.studentRepository.find({
       select: ['username', 'password'],
       where: { username: `${studentLoginDto.username}` },
@@ -49,20 +52,20 @@ export class StudentService {
 
     if (studentList.length === 0) {
       return {
-        code: 403,
-        message: 'the username has not been registered',
+        statusCode: '400',
+        message: ['the username has not been registered'],
       };
     } else if (
       !(await verify(studentList[0].password, studentLoginDto.password)) //库函数，验证密码
     ) {
       return {
-        code: 403,
-        message: 'You password is wrong!',
+        statusCode: '400',
+        message: ['You password is wrong!'],
       };
     } else {
       return {
-        code: 200,
-        message: 'Login successful',
+        statusCode: '200',
+        message: ['Login successful'],
         token: await this.jwtService.signAsync({
           username: studentLoginDto.username,
         }),

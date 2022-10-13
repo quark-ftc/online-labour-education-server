@@ -7,11 +7,11 @@ export class StudentController {
   constructor(private readonly studentService: StudentService) {}
   @Post('register')
   register(@Body() studentRegisterDto: StudentRegisterDto) {
-    return this.studentService.register(studentRegisterDto);
+    return this.studentService.studentRegister(studentRegisterDto);
   }
 
   @Post('login')
   login(@Body() studentLoginDto: StudentLoginDto) {
-    return this.studentService.login(studentLoginDto);
+    return this.studentService.studentLogin(studentLoginDto);
   }
 }

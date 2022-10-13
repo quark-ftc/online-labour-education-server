@@ -5,10 +5,12 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { StudentModule } from './auth/student/student.module';
 import indexConfig from './config/index.config';
+import { CourseModule } from './course/course.module';
 import { TestModule } from './test/test.module'; //用于测试一些功能，生产环境中应该删除改模块
+import { AdminModule } from './auth/admin/admin.module';
 
 @Module({
-  imports: [
+  imports: [ 
     ConfigModule.forRoot({
       load: [...indexConfig],
       isGlobal: true,
@@ -30,6 +32,8 @@ import { TestModule } from './test/test.module'; //用于测试一些功能，�
     }),
     StudentModule,
     TestModule, //用于测试一些功能，生产环境中应该删除改模块
+    CourseModule,
+    AdminModule,
   ],
   controllers: [AppController],
   providers: [AppService],
